@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="container">
       <p>Developed with 💙💛 by <Link href={"https://github.com/sandra-selezen"} target="_blank" rel="noopener">Sandra Selezen</Link></p>
     </footer>
   )
