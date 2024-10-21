@@ -1,0 +1,48 @@
+@import "../../styles/mixins";
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include large {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  padding: 0.75rem;
+
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.imageWrapper {
+  & img {
+    object-fit: contain;
+  }
+
+  @include only-large {
+    margin: 0 auto;
+  }
+}

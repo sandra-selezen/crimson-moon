@@ -1,0 +1,19 @@
+.header {
+  padding: 2rem 0;
+}
+
+.list {
+  display: flex;
+  gap: 2rem;
+}
+
+.item {
+  padding: 0.75rem;
+}
+
+.link {
+  transition: color 0.3s ease-in-out;
+  &:hover {
+    color: #ffd700;
+  }
+}

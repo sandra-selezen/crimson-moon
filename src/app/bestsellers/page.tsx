@@ -1,22 +1,18 @@
 import { fetchNYTimesBestSellers } from "@/lib/nytApi";
 
+import { BestsellersList } from "@/components/BestsellersList/BestsellersList";
+
+import style from "../../styles/pages/BestsellersPage.module.scss";
+
 export default async function Bestsellers() {
   const books = await fetchNYTimesBestSellers();
 
   return (
     <main className="container">
-      <h1>New York Times bestsellers</h1>
-      <ul>
-        {books.map((book: any) => (
-          <li key={book.rank}>
-            <img src={book.book_image} alt={book.title} width={100} />
-            <h3>{book.title}</h3>
-            <p>{book.description}</p>
-            <p>{book.author} | {book.publisher}</p>
-            <p>{book.weeks_on_list > 1 ? `${book.weeks_on_list} weeks on the list` : 'new this week'}</p>
-          </li>
-        ))}
-      </ul>
+      <section className={style.section}>
+        <h1 className={style.title}>New York Times bestsellers</h1>
+        <BestsellersList books={books} />
+      </section>
     </main>
   )
 }

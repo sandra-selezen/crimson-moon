@@ -1,56 +1,5 @@
-// Variables for breakpoints
-$breakpoint-mobile: 576px;
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
-$breakpoint-large-desktop: 1280px;
-
-// Background colors
-$background-primary: #1E0209;
-
-// Text colors
-$text-primary: #ededed;
-
-// Global container styles
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-
-  // Mobile styles (default)
-  @media (max-width: $breakpoint-mobile) {
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-
-  // Tablet styles
-  @media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet) {
-    max-width: 540px;
-  }
-
-  // Desktop styles
-  @media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
-    max-width: 720px;
-  }
-
-  // Large desktop styles
-  @media (min-width: $breakpoint-desktop) and (max-width: $breakpoint-large-desktop) {
-    max-width: 960px;
-  }
-
-  // Extra large desktop styles
-  @media (min-width: $breakpoint-large-desktop) {
-    max-width: 1140px;
-  }
-}
-
-body {
-  color: $text-primary;
-  background-color: $background-primary;
-}
-
-main {
-  height: 100vh;
-}
+@import "../styles/variables";
+@import "../styles/common";
 
 * {
   box-sizing: border-box;
@@ -58,7 +7,12 @@ main {
   margin: 0;
 }
 
-ul {
+body {
+  color: $text-primary;
+  background-color: $background-primary;
+}
+
+ul, li {
   list-style: none;
   margin: 0;
   padding: 0;

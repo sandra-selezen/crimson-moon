@@ -1,0 +1,30 @@
+@import "./variables";
+@import "./mixins";
+
+// Global container styles
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+
+  // Mobile styles (default)
+  @include mobile {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  // Tablet styles
+  @include tablet {
+    max-width: 540px;
+  }
+
+  // Desktop styles
+  @include desktop {
+    max-width: 960px;
+  }
+
+  // Large desktop styles
+  @include large {
+    max-width: 1300px;
+  }
+}

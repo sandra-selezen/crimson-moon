@@ -2,15 +2,17 @@
 
 import Link from "next/link";
 
+import style from "./Header.module.scss";
+
 export const Header = () => {
   return (
     <header className="container">
-      <nav>
-        <ul>
-          <li>
-            <Link href={"/"}>Home</Link>
+      <nav className={style.header}>
+        <ul className={style.list}>
+          <li className={style.item}>
+            <Link className={style.link} href={"/"}>Home</Link>
           </li>
-          <li><Link href={"/bestsellers"}>Bestsellers</Link></li>
+          <li className={style.item}><Link className={style.link} href={"/bestsellers"}>Bestsellers</Link></li>
         </ul>
       </nav>
     </header>
