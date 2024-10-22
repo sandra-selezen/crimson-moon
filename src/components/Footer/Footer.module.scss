@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .footer {
   padding: 2rem 0;
   text-align: center;
@@ -8,6 +10,6 @@
 .link {
   transition: color 0.3s ease-in-out;
   &:hover {
-    color: #ffd700;
+    color: $accent-primary;
   }
 }
