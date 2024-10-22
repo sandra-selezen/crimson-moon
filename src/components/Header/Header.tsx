@@ -6,8 +6,8 @@ import style from "./Header.module.scss";
 
 export const Header = () => {
   return (
-    <header className="container">
-      <nav className={style.header}>
+    <header className={style.header}>
+      <nav className="container">
         <ul className={style.list}>
           <li className={style.item}>
             <Link className={style.link} href={"/"}>Home</Link>
