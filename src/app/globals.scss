@@ -12,6 +12,10 @@ body {
   background-color: $background-primary;
 }
 
+main {
+  min-height: 100vh;
+}
+
 ul, li {
   list-style: none;
   margin: 0;

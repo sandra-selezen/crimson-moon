@@ -1,0 +1,13 @@
+@import "../mixins";
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.section {
+  padding: 2rem 0;
+
+  @include only-large {
+    padding: 3rem 0;
+  }
+}

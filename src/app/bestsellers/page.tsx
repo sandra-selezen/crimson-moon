@@ -1,4 +1,4 @@
-import { getBestSellersListNames } from "@/lib/nytApi";
+import { getBestSellersListNames } from "@/lib/nyt-api";
 import { IListName } from "@/lib/types";
 
 import { BestsellersTags } from "@/components/BestsellersTags/BestsellersTags";
