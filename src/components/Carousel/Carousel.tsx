@@ -3,7 +3,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "./Carousel.module.scss";
+import style from "./Carousel.module.scss";
 
 export const Carousel = ({ items }: { items: any }) => {
   const settings = {
@@ -12,7 +12,8 @@ export const Carousel = ({ items }: { items: any }) => {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    arrows: true,
+    nextArrow: <ButtonNext />,
+    prevArrow: <ButtonBack />,
     responsive: [
       {
         breakpoint: 1024,
@@ -40,16 +41,37 @@ export const Carousel = ({ items }: { items: any }) => {
   };
 
   return (
-    <div className={styles["slider-container"]}>
+    <div className={style["slider-container"]}>
       <Slider {...settings}>
         {items.map((item: any) => (
-          <div key={item.rank} className={styles.item}>
-            <img src={item.book_image} alt={item.title} width={100} />
-            <h3>{item.title}</h3>
-            <p>{item.author} | {item.publisher}</p>
+          <div key={item.rank} className={style.item}>
+            <div className={style.imageWrapper}>
+              <img src={item.book_image} alt={item.title} width={100} />
+            </div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.author} | {item.publisher}</p>
+            </div>
           </div>
         ))}
       </Slider>
     </div>
   );
+};
+
+
+const ButtonNext = (props: any) => {
+  const { className, style, onClick } = props;
+
+  return (
+    <button type="button" className={style["next-slick-arrow"]} onClick={onClick}>{">"}</button>
+  )
+};
+
+const ButtonBack = (props: any) => {
+  const { className, style, onClick } = props;
+
+  return (
+    <button type="button" className={style["prev-slick-arrow"]} onClick={onClick}>{"<"}</button>
+  )
 };
