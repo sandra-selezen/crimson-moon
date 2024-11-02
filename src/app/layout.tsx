@@ -5,7 +5,7 @@ import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import "./globals.scss";
 
-export const nunito = Nunito({
+const nunito = Nunito({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
 });
