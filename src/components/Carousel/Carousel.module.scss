@@ -1,74 +1,51 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-.slider-container {
+.slider {
+  position: relative;
 
-  & .slick-prev {
-    left: -52px !important;
-  }
-  
-  & .slick-next:before,
-  & .slick-prev:before {
-    content: "" !important;
-  }
-  & .next-slick-arrow,
-  & .prev-slick-arrow {
-    color: #000000;
-    font-size: 45px;
-  }
+  &:hover {
+    .arrow {
+      background-color: $background-secondary;
 
-  & .item {
-    height: 100%;
-    padding: 0 0.5rem;
-    text-align: center;
-    border-radius: 0.5rem;
-    color: $text-primary;
-    // background-color: #2b0c0f;
-    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-
-    & .imageWrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 0.5rem;
-    }
-
-    & img {
-      border-radius: 0.25rem;
-      width: 230px;
-      height: auto;
-
-      @include tablet {
-        width: 100%;
-        height: 230px;
-      }
-
-      @include desktop {
-        width: 100%;
-        height: 260px;
-      }
-
-      @include large {
-        width: 100%;
-        height: 340px;
+      & > svg {
+        fill: $accent-primary;
       }
     }
+  }
+}
 
-    & h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: $accent-primary;
-      margin-bottom: 0.5rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+.arrow {
+  position: absolute;
+  top: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: none;
+  outline: none;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
 
-    & p {
-      font-size: 0.85rem;
-      color: $text-secondary;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+  background-color: $text-secondary;
+  opacity: 0.9;
+
+  & > svg {
+    fill: $background-secondary;
+  }
+
+  @include only-large {
+    display: inline-flex;
+  }
+
+  &.back {
+    border-radius: 50%;
+    left: 1.25rem;
+  }
+  &.next {
+    border-radius: 50%;
+    right: 1.25rem;
   }
 }

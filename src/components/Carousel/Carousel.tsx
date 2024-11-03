@@ -1,77 +1,79 @@
 "use client";
 
-import Slider from "react-slick";
+import { ReactNode } from "react";
+import Slider, { CustomArrowProps, Settings } from "react-slick";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import style from "./Carousel.module.scss";
 
-export const Carousel = ({ items }: { items: any }) => {
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    nextArrow: <ButtonNext />,
-    prevArrow: <ButtonBack />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+interface ICarousel {
+  children: ReactNode[];
+  settings?: Settings;
+  className?: string;
+}
 
+export const Carousel = ({ children, settings, className }: ICarousel) => {
   return (
-    <div className={style["slider-container"]}>
-      <Slider {...settings}>
-        {items.map((item: any) => (
-          <div key={item.rank} className={style.item}>
-            <div className={style.imageWrapper}>
-              <img src={item.book_image} alt={item.title} width={100} />
-            </div>
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.author} | {item.publisher}</p>
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+    <Slider
+      {...{
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        nextArrow: <ButtonNext />,
+        prevArrow: <ButtonBack />,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ],
+        ...settings,
+      }}
+      className={style.slider}
+    >
+      {children}
+    </Slider>
   );
 };
 
 
-const ButtonNext = (props: any) => {
-  const { className, style, onClick } = props;
+const ButtonNext = (props: CustomArrowProps) => {
+  const { onClick } = props;
 
   return (
-    <button type="button" className={style["next-slick-arrow"]} onClick={onClick}>{">"}</button>
+    <button type="button" className={`${style.arrow} ${style.next}`} onClick={onClick}>
+      <RiArrowRightSLine size={"2rem"} />
+    </button>
   )
 };
 
-const ButtonBack = (props: any) => {
-  const { className, style, onClick } = props;
+const ButtonBack = (props: CustomArrowProps) => {
+  const { onClick } = props;
 
   return (
-    <button type="button" className={style["prev-slick-arrow"]} onClick={onClick}>{"<"}</button>
+    <button type="button" className={`${style.arrow} ${style.back}`} onClick={onClick}>
+      <RiArrowLeftSLine size={"2rem"} />
+    </button>
   )
 };
