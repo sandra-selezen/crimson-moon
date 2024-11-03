@@ -49,7 +49,7 @@ export const SearchForm = ({ className }: ISearchForm) => {
             className={style.field}
           />
 
-          <button type="submit" disabled={isSubmitting && !values.query} className={style.searchButton}>
+          <button type="submit" disabled={isSubmitting || !values.query} className={style.searchButton}>
             <RiSearchLine />
           </button>
         </Form>
