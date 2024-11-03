@@ -1,13 +1,24 @@
 @import "../../styles/variables";
 
 .header {
-  padding: 2rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navWrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  & img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.logoWrapper {
+  width: 100px;
+  height: auto;
 }
 
 .list {
@@ -24,4 +35,9 @@
   &:hover {
     color: $accent-primary;
   }
+}
+
+.active {
+  font-weight: 600;
+  color: $accent-primary;
 }

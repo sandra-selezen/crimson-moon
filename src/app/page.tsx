@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCombinedFiction } from "@/lib/nyt-api";
 import { Carousel } from "@/components/Carousel/Carousel";
 import { SearchForm } from "@/components/Forms/SearchForms/SearchForm";
@@ -8,10 +9,20 @@ export default async function Home() {
   const books = await getCombinedFiction();
 
   return (
-    <main className="container">
-      <h1 className={style.title}>Hello readers!</h1>
-
-      <section className={style.section}>
+    <main>
+      <section className={style.hero}>
+        <div className={style.overlay}>
+          <div className={style.content}>
+            <h1 className={style.heroTitle}>Embark on a Journey through Dark Romance & Fantasy</h1>
+            <p className={style.subtitle}>
+              Discover and review the best fantasy and dark romance books.
+            </p>
+            <SearchForm className={style.searchForm} />
+            <Link href={"/bestsellers"} className={style.ctaButton}>Explore Bestsellers</Link>
+          </div>
+        </div>
+      </section>
+      <section className={`container ${style.section}`}>
         <h2 className={style.title}>New York Times bestsellers | Combined Print & E-Book Fiction</h2>
         <Carousel>
           {books.map((book: any) => (
@@ -26,9 +37,13 @@ export default async function Home() {
             </div>
           ))}
         </Carousel>
-      </section>
-      <section className={style.section}>
-        <SearchForm />
+
+        <Link
+          href="/bestsellers/combined-print-and-e-book-fiction"
+          className={style.seeAllLink}
+        >
+          See all
+        </Link>
       </section>
     </main>
   );

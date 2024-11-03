@@ -4,6 +4,17 @@
 .slider {
   position: relative;
 
+  // margin-left: calc(#{$global-gap} / 4 * -1);
+  // margin-right: calc(#{$global-gap} / 4 * -1);
+
+  // :global(.slick-slide > *) {
+  //   margin: 0 calc(#{$global-gap} / 4);
+  // }
+
+  // :global(.slick-track) {
+  //   margin-left: 0 !important;
+  // }
+
   &:hover {
     .arrow {
       background-color: $background-secondary;
@@ -32,8 +43,11 @@
   background-color: $text-secondary;
   opacity: 0.9;
 
+  transition: background-color 0.3s ease;
+
   & > svg {
     fill: $background-secondary;
+    transition: fill 0.3s ease;
   }
 
   @include only-large {

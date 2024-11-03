@@ -13,7 +13,7 @@ body {
 }
 
 main {
-  min-height: 100vh;
+  min-height: calc(100vh - 11rem);
 }
 
 ul, li {
@@ -25,4 +25,12 @@ ul, li {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+input {
+  outline: none;
+
+  &::placeholder {
+    color: $text-secondary;
+  }
 }

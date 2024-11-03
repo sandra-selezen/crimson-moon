@@ -1,0 +1,50 @@
+@import "../../../styles/variables";
+
+.form {
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// .fieldWrapper {
+//   position: relative;
+//   height: 100%;
+// }
+
+.field {
+  height: 100%;
+  width: 280px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid $text-primary;
+  border-radius: 2rem 0 0 2rem;
+  color: $text-primary;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+// .error {
+//   position: absolute;
+//   margin-top: 0.25rem;
+//   color: $text-error;
+// }
+
+.searchButton {
+  height: 100%;
+  outline: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0 2rem 2rem 0;
+  border: 1px solid $text-primary;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $background-secondary;
+  }
+
+  & > svg {
+    fill: $accent-primary;
+  }
+}

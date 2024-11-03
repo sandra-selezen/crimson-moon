@@ -1,16 +1,25 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { fetchBooks } from "@/lib/google-api";
+import { RiSearchLine } from "@remixicon/react";
+
+import style from "./SearchForm.module.scss";
 
 interface IValue {
   query: string;
 }
 
-export const SearchForm = () => {
+interface ISearchForm  {
+  className?: string;
+}
+
+export const SearchForm = ({ className }: ISearchForm) => {
+  const router = useRouter();
+
   const initialValues = {
-    query: '',
+    query: "",
   }
   const validationSchema = Yup.object({
     query: Yup.string()
@@ -20,7 +29,8 @@ export const SearchForm = () => {
 
   const handleSubmit = (values: IValue, formikHelpers: FormikHelpers<IValue> ) => {
     const { query } = values;
-    const books = fetchBooks(query);
+    const formattedQuery = query.replace(/\s+/g, "+");
+    router.push(`/search/books?query=${formattedQuery}`);
     formikHelpers.resetForm();
   };
 
@@ -30,18 +40,17 @@ export const SearchForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
-        <Form>
-          <div>
-            <Field
-              type="text"
-              name="query"
-              placeholder="Search for books..."
-            />
-            <ErrorMessage name="query" component="div" />
-          </div>
-          <button type="submit" disabled={isSubmitting}>
-            Search
+      {({ isSubmitting, values }) => (
+        <Form className={`${style.form} ${className}`} autoComplete="off">
+          <Field
+            type="text"
+            name="query"
+            placeholder="Search for books..."
+            className={style.field}
+          />
+
+          <button type="submit" disabled={isSubmitting && !values.query} className={style.searchButton}>
+            <RiSearchLine />
           </button>
         </Form>
       )}

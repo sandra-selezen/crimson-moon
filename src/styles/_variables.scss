@@ -6,12 +6,15 @@ $breakpoint-large-desktop: 1280px;
 $breakpoint-2x-large-desktop: 1536px;
 
 // Background colors
-$background-primary: #1E0209;
+$background-primary: #1e0209;
 $background-secondary: #2b0c0f;
 
 // Text colors
 $text-primary: #ededed;
 $text-secondary: #cccccc;
+$text-error: #a52a2a;
 
 // Accent colors
 $accent-primary: #ffd700;
+
+$global-gap: 1.875rem;

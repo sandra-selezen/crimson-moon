@@ -1,14 +1,84 @@
 @import "../mixins";
 
+.hero {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $background-primary, #3a0e13);
+
+  color: $text-primary;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  background-image: url("../../../public/moth-01.png"), url("../../../public/moth-02.png");
+  background-repeat: no-repeat;
+  background-position: right bottom, left bottom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: $accent-primary;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: $text-secondary;
+}
+
+.searchForm {
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  padding: 0.75rem 1.5rem;
+  display: inline-block;
+  font-weight: bold;
+  color: $accent-primary;
+  background-color: transparent;
+  border: 2px solid $accent-primary;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: $accent-primary;
+    color: $background-primary;
+  }
+}
+
 .title {
   margin-bottom: 1rem;
 }
 
 .section {
-  padding: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 
   @include only-large {
-    padding: 3rem 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -38,6 +108,12 @@
 .imageWrapper {
   margin-bottom: 0.5rem;
 
+  @include mobile {
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   @include tablet {
     width: 100%;
     height: 230px;
@@ -59,5 +135,24 @@
     width: 100%;
 
     object-fit: contain;
+  }
+}
+
+.seeAllLink {
+  padding: 0.5rem 1.25rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: $accent-primary;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid $accent-primary;
+  border-radius: 2rem;
+  cursor: pointer;
+
+  display: inline-block;
+  transition: color 0.3s, border-color 0.3s;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $text-primary;
   }
 }

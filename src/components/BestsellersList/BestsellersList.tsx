@@ -21,7 +21,7 @@ export const BestsellersList = ({ books }: IBestsellers) => {
           <div className={style.imageWrapper}>
             <img src={book.book_image} alt={book.title} width={100} />
           </div>
-          <h3>{book.title}</h3>
+          <h3 className={style.title}>{book.title}</h3>
           <p>{book.weeks_on_list > 1 ? `${book.weeks_on_list} weeks on the list` : 'new this week'}</p>
           <p>{book.description}</p>
           <p>{book.author} | {book.publisher}</p>

@@ -25,6 +25,7 @@
   row-gap: 0.5rem;
   padding: 0.75rem;
 
+  color: $text-secondary;
   border-radius: 0.5rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.02);
@@ -45,4 +46,8 @@
   @include only-large {
     margin: 0 auto;
   }
+}
+
+.title {
+  color: $accent-primary;
 }
