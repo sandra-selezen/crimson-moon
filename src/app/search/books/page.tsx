@@ -1,6 +1,8 @@
 import { fetchBooks } from "@/lib/google-api";
-import { IGoogleBook } from "@/lib/types";
 import { SearchForm } from "@/components/Forms/SearchForms/SearchForm";
+import { BookList } from "@/components/BookList/BookList";
+
+import style from "../../../styles/pages/SearchBooks.module.scss";
 
 export default async function SearchBooks({ searchParams }: {
   searchParams: Promise<{ query: string }>
@@ -10,23 +12,21 @@ export default async function SearchBooks({ searchParams }: {
 
   return (
     <main className="container">
-      <section>
-        <h1>Search Books page</h1>
+      <section className={style.section}>
+        <div className={style.searchHeader}>
+          <h1 className={style.mainTitle}>What Will You Read Next?</h1>
+          <p className={style.subtitle}>Search through thousands of titles and find the next book that will capture your heart and imagination.</p>
+        </div>
         <SearchForm />
       </section>
-      <section>
-        {books.map((book: IGoogleBook) => (
-          <li key={book.id}>
-            <div>
-              <img src={book.volumeInfo.imageLinks?.thumbnail} alt={book.volumeInfo.title} />
-            </div>
-            <h3>{book.volumeInfo.title}</h3>
-            <p>{book.volumeInfo.authors?.join(", ")}</p>
-            <span>{book.volumeInfo.publishedDate}</span>
-            <p>{book.volumeInfo.description}</p>
-            <span>{book.volumeInfo.pageCount}</span>
-          </li>
-        ))}
+      <section className={style.section}>
+        {query && books && (
+          <div>
+            <h2>Results for: "{query}"</h2>
+            <p>{books.length} books found</p>
+          </div>
+        )}
+        <BookList books={books} />
       </section>
     </main>
   )

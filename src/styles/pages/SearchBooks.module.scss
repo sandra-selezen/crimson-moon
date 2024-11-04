@@ -1,0 +1,27 @@
+@import "../variables";
+@import "../mixins";
+
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  @include only-large {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.searchHeader {}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: $accent-primary;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: $text-secondary;
+}

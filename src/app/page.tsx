@@ -6,7 +6,7 @@ import { SearchForm } from "@/components/Forms/SearchForms/SearchForm";
 import style from "../styles/pages/Home.module.scss";
 
 export default async function Home() {
-  const books = await getCombinedFiction();
+  // const books = await getCombinedFiction();
 
   return (
     <main>
@@ -22,7 +22,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className={`container ${style.section}`}>
+      {/* <section className={`container ${style.section}`}>
         <h2 className={style.title}>New York Times bestsellers | Combined Print & E-Book Fiction</h2>
         <Carousel>
           {books.map((book: any) => (
@@ -44,7 +44,7 @@ export default async function Home() {
         >
           See all
         </Link>
-      </section>
+      </section> */}
     </main>
   );
 }

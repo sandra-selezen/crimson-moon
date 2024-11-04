@@ -32,6 +32,11 @@
   z-index: 1;
   text-align: center;
   max-width: 800px;
+
+  @include mobile {
+    backdrop-filter: blur(4px);
+    padding: 0.5rem 1rem;
+  }
 }
 
 .heroTitle {
