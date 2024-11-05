@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.avatarWrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border-radius: 50%;
+  border: 2px solid $accent-primary;
+
+  & img {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+  }
+}

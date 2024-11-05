@@ -1,23 +1,24 @@
-"use client";
-
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+
+import { auth } from "../../../auth";
+import { UserBar } from "../UserBar/UserBar";
+import { ActiveLink } from "../ActiveLink/ActiveLink";
 
 import style from "./Header.module.scss";
 
-export const Header = () => {
-  const pathname = usePathname();
+export const Header = async () => {
+  const session = await auth();
+
   return (
     <header className={style.header}>
       <nav className="container">
         <div className={style.navWrapper}>
           <ul className={style.list}>
             <li className={style.item}>
-              <Link className={`${style.link} ${pathname === "/" ? style.active : ""}`} href={"/"}>Home</Link>
+              <ActiveLink href={"/"}>Home</ActiveLink>
             </li>
             <li className={style.item}>
-              <Link className={`${style.link} ${pathname === "/bestsellers" ? style.active : ""}`} href={"/bestsellers"}>Bestsellers</Link>
+              <ActiveLink href={"/bestsellers"}>Bestsellers</ActiveLink>
             </li>
           </ul>
 
@@ -25,14 +26,18 @@ export const Header = () => {
             <Image src="/logo.png" alt="logo" width={105} height={60} />
           </div>
 
-          <ul className={style.list}>
-            <li className={style.item}>
-              <Link className={`${style.link} ${pathname === "/login" ? style.active : ""}`} href={"/login"}>Login</Link>
-            </li>
-            <li className={style.item}>
-              <Link className={`${style.link} ${pathname === "/signup" ? style.active : ""}`} href={"/signup"}>Signup</Link>
-            </li>
-          </ul>
+          {session && session.user ? (
+            <UserBar id={session.user.id} name={session.user.name} image={session.user.image} />
+          ) : (
+            <ul className={style.list}>
+              <li className={style.item}>
+                <ActiveLink href={"/login"}>Login</ActiveLink>
+              </li>
+              <li className={style.item}>
+                <ActiveLink href={"/signup"}>Signup</ActiveLink>
+              </li>
+            </ul>
+          )}
         </div>
       </nav>
     </header>

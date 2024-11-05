@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.link {
+  transition: color 0.3s ease-in-out;
+  &:hover {
+    color: $accent-primary;
+  }
+}
+
+.active {
+  font-weight: 600;
+  color: $accent-primary;
+}
