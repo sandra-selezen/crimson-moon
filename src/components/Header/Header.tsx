@@ -26,9 +26,9 @@ export const Header = async () => {
             <Image src="/logo.png" alt="logo" width={105} height={60} />
           </div>
 
-          {session && session.user ? (
+          {/* {session && session.user ? (
             <UserBar id={session.user.id} name={session.user.name} image={session.user.image} />
-          ) : (
+          ) : ( */}
             <ul className={style.list}>
               <li className={style.item}>
                 <ActiveLink href={"/login"}>Login</ActiveLink>
@@ -37,7 +37,7 @@ export const Header = async () => {
                 <ActiveLink href={"/signup"}>Signup</ActiveLink>
               </li>
             </ul>
-          )}
+          {/* )} */}
         </div>
       </nav>
     </header>

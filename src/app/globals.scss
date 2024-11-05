@@ -34,3 +34,8 @@ input {
     color: $text-secondary;
   }
 }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

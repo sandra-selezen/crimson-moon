@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { signIn } from 'next-auth/react';
+import { SignupForm } from '@/components/Forms/SignupForm/SignupForm';
 
 const Signup = () => {
 
@@ -10,8 +11,9 @@ const Signup = () => {
   }
 
   return (
-    <main>
-      <div>Signup page</div>
+    <main className="container">
+      <h1>Create your account</h1>
+      <SignupForm />
       <button type="submit" onClick={onSignup}>Signup with Google</button>
     </main>
   )
