@@ -1,20 +1,13 @@
-"use client";
+import { SignupForm } from "@/components/Forms/SignupForm/SignupForm";
 
-import React from 'react';
-import { signIn } from 'next-auth/react';
-import { SignupForm } from '@/components/Forms/SignupForm/SignupForm';
+import style from "../../../styles/pages/AuthPage.module.scss";
 
 const Signup = () => {
 
-  const onSignup = async () => {
-    await signIn("google");
-  }
-
   return (
     <main className="container">
-      <h1>Create your account</h1>
+      <h1 className={style.pageTitle}>Create your account</h1>
       <SignupForm />
-      <button type="submit" onClick={onSignup}>Signup with Google</button>
     </main>
   )
 }
