@@ -29,12 +29,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!user) throw new Error("Wrong Email");
 
-        const passwordMatch = await bcrypt.compare(
-          password,
-          user.password,
-        );
+        // const passwordMatch = await bcrypt.compare(
+        //   password,
+        //   user.password,
+        // );
 
-        if (!passwordMatch) throw new Error("Wrong Password");
+        // if (!passwordMatch) throw new Error("Wrong Password");
         return user;
       },
     }),
