@@ -20,7 +20,17 @@ export const LoginForm = () => {
     await signIn("google");
   }
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (values: any) => {
+    try {
+      const response = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+      });
+      console.log("response", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>

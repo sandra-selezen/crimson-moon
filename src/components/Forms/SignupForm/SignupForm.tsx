@@ -6,6 +6,7 @@ import { Field, Form, Formik } from "formik";
 import { RiGoogleFill } from "@remixicon/react";
 
 import { signUpSchema } from "@/schemas";
+import { register } from "../../../../actions/register";
 
 import { Separator } from "@/components/Separator/Separator";
 import style from "../../../styles/pages/AuthPage.module.scss";
@@ -21,7 +22,18 @@ export const SignupForm = () => {
     await signIn("google");
   }
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (values: any) => {
+    try {
+      const response = await register({
+        name: values.name,  
+        email: values.email,
+        password: values.password,
+      });
+      console.log("response", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
