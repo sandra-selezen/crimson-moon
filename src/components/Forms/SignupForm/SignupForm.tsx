@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
+import axios from "axios";
 import { RiGoogleFill } from "@remixicon/react";
 
 import { signUpSchema } from "@/schemas";
-import { register } from "../../../../actions/register";
 
 import { Separator } from "@/components/Separator/Separator";
 import style from "../../../styles/pages/AuthPage.module.scss";
@@ -22,16 +22,19 @@ export const SignupForm = () => {
     await signIn("google");
   }
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
     try {
-      const response = await register({
-        name: values.name,  
-        email: values.email,
-        password: values.password,
-      });
-      console.log("response", response);
-    } catch (error) {
-      console.log(error);
+      const res = await axios.post('/api/register', { ...values });
+      const { token } = res.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+    } catch (error: any) {
+      alert(error.response.data.error);
+    } finally {
+      formikHelpers.resetForm();
     }
   };
 

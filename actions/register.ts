@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
 
-import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
+import { mongooseConnect } from "@/lib/mongoose";
 
 export const register = async (values: any) => {
   const { email, password, name } = values;
   try {
-    await connectDB();
+    await mongooseConnect();
     const userFound = await User.findOne({ email });
     if(userFound){
       return {

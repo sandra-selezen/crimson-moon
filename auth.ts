@@ -3,25 +3,24 @@ import Google from "next-auth/providers/google";
 import credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-import { connectDB } from "@/lib/mongodb";
+import client from "@/lib/mongodb";
 import User from "@/models/User";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { mongooseConnect } from "@/lib/mongoose";
 
 const AUTH_GOOGLE_ID = process.env.AUTH_GOOGLE_ID;
 const AUTH_GOOGLE_SECRET = process.env.AUTH_GOOGLE_SECRET;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: MongoDBAdapter(client),
   providers: [
     credentials({
       name: "Credentials",
       id: "credentials",
-      credentials: {
-        // name: { label: "Name", type: "text" },
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
+      credentials: {},
+      async authorize(credentials: any) {
         const { email, password } = credentials;
-        await connectDB();
+        await mongooseConnect();
 
         const user = await User.findOne({
           email: email,
@@ -29,12 +28,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!user) throw new Error("Wrong Email");
 
-        // const passwordMatch = await bcrypt.compare(
-        //   password,
-        //   user.password,
-        // );
+        const passwordMatch = await bcrypt.compare(
+          password,
+          user.password,
+        );
 
-        // if (!passwordMatch) throw new Error("Wrong Password");
+        if (!passwordMatch) throw new Error("Wrong Password");
         return user;
       },
     }),
@@ -46,6 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: 'jwt',
   },
+  secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async signIn({ account, profile }) {
       if (!profile?.email) {
@@ -53,13 +53,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       console.log("profile", profile);
+      console.log("account", account);
       return true;
     },
     async jwt({ token, user, account, profile }) {
       if (profile) {
         console.log("profile", profile);
       }
-      return token
+      if (account) {
+        console.log("account", account);
+      }
+      return token;
     },
   },
 });

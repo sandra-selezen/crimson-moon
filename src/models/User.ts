@@ -8,31 +8,32 @@ export interface UserDocument {
   image: string;
   createdAt: Date;
   updatedAt: Date;
+  token: string;
 }
 
-const UserSchema = new Schema<UserDocument>({
-  email: {
-    type: String,
-    unique: true,
-    required: [true, "Email is required"],
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Email is invalid",
-    ],
+const UserSchema = new Schema<UserDocument>(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    token: {
+      type: String,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: [true, "Name is required"],
-  }
-},
   {
     timestamps: true,
   }
 );
 
 const User = mongoose.models?.User || model<UserDocument>('User', UserSchema);
-export  default  User;
+export default User;
