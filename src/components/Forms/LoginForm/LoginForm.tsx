@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import { RiGoogleFill } from "@remixicon/react";
 
 import { logInSchema } from "@/schemas";
@@ -20,7 +20,7 @@ export const LoginForm = () => {
     await signIn("google");
   }
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
     try {
       const response = await signIn("credentials", {
         email: values.email,
@@ -29,6 +29,8 @@ export const LoginForm = () => {
       console.log("response", response);
     } catch (error) {
       console.log(error);
+    } finally {
+      formikHelpers.resetForm();
     }
   };
 

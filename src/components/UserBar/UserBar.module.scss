@@ -1,5 +1,11 @@
 @import "../../styles/variables";
 
+.userBarWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
 .avatarWrapper {
   width: 2.5rem;
   height: 2.5rem;
@@ -12,4 +18,13 @@
     width: 100%;
     border-radius: 50%;
   }
+}
+
+.logoutBtn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  color: $accent-primary;
+  border: none;
+  background-color: transparent;
 }

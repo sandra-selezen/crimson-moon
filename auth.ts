@@ -19,12 +19,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       id: "credentials",
       credentials: {},
       async authorize(credentials: any) {
+        console.log("заходить в authorize")
         const { email, password } = credentials;
         await mongooseConnect();
 
-        const user = await User.findOne({
-          email: email,
-        }).select("+password");
+        const user = await User.findOne({ email: email });
+        console.log("user", user)
 
         if (!user) throw new Error("Wrong Email");
 
@@ -48,6 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async signIn({ account, profile }) {
+      console.log("заходить в signIn")
       if (!profile?.email) {
         throw new Error('No profile')
       }
@@ -57,6 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     async jwt({ token, user, account, profile }) {
+      console.log("заходить в jwt")
       if (profile) {
         console.log("profile", profile);
       }
