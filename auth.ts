@@ -19,22 +19,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       id: "credentials",
       credentials: {},
       async authorize(credentials: any) {
-        console.log("заходить в authorize")
-        const { email, password } = credentials;
-        await mongooseConnect();
-
-        const user = await User.findOne({ email: email });
-        console.log("user", user)
-
-        if (!user) throw new Error("Wrong Email");
-
-        const passwordMatch = await bcrypt.compare(
-          password,
-          user.password,
-        );
-
-        if (!passwordMatch) throw new Error("Wrong Password");
-        return user;
+        try {
+          await mongooseConnect();
+          const user = await User.findOne({ email: credentials?.email })
+          if (!user) throw new Error("Incorrect email or password");
+          const isValidPassword = await bcrypt.compare(
+            credentials?.password ?? "", user.password as string
+          ); 
+          if (!isValidPassword) throw new Error("Incorrect email or password");
+          return user;
+        } catch (error) {
+          return null;
+        }
       },
     }),
     Google({
@@ -45,27 +41,40 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+
   callbacks: {
     async signIn({ account, profile }) {
-      console.log("заходить в signIn")
-      if (!profile?.email) {
-        throw new Error('No profile')
-      }
-
       console.log("profile", profile);
       console.log("account", account);
+
       return true;
     },
-    async jwt({ token, user, account, profile }) {
-      console.log("заходить в jwt")
-      if (profile) {
-        console.log("profile", profile);
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
       }
-      if (account) {
-        console.log("account", account);
-      }
+
       return token;
     },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user = {
+          id: token.id as string,
+          email: token.email ?? "",
+          name: token.name ?? "",
+          image: token.picture ?? "",
+          emailVerified: null,
+        }
+      }
+
+      return session;
+    }
   },
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.NEXT_AUTH_SECRET as string,
 });

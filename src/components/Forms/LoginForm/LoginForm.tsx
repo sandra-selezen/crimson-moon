@@ -17,18 +17,18 @@ export const LoginForm = () => {
   }
 
   const onGoogleSignup = async () => {
-    await signIn("google");
+    await signIn("google", { redirectTo: "/" });
   }
 
   const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
     try {
-      const response = await signIn("credentials", {
+      await signIn("credentials", {
         email: values.email,
         password: values.password,
+        redirectTo: "/",
       });
-      console.log("response", response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      alert(error.response.data.error);
     } finally {
       formikHelpers.resetForm();
     }

@@ -31,10 +31,10 @@ export async function POST(req: Request): Promise<Response> {
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
       JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "23h" }
     );
 
-    return NextResponse.json({ message: "User registered successfully!", token });
+    return NextResponse.json({ message: "User registered successfully!", token }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

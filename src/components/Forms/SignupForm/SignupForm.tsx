@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import axios from "axios";
@@ -12,6 +13,8 @@ import { Separator } from "@/components/Separator/Separator";
 import style from "../../../styles/pages/AuthPage.module.scss";
 
 export const SignupForm = () => {
+  const router = useRouter();
+
   const initialValues = {
     name: "",
     email: "",
@@ -19,18 +22,13 @@ export const SignupForm = () => {
   }
 
   const onGoogleSignup = async () => {
-    await signIn("google");
+    await signIn("google", { redirectTo: "/" });
   }
 
   const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
     try {
-      const res = await axios.post('/api/register', { ...values });
-      const { token } = res.data;
-
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
+      await axios.post('/api/register', { ...values });
+      router.push("/");
     } catch (error: any) {
       alert(error.response.data.error);
     } finally {
