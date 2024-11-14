@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials: any) {
         try {
           await mongooseConnect();
-          const user = await User.findOne({ email: credentials?.email })
+          const user = await User.findOne({ email: credentials?.email });
           if (!user) throw new Error("Incorrect email or password");
           const isValidPassword = await bcrypt.compare(
             credentials?.password ?? "", user.password as string
@@ -43,9 +43,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ account, profile, credentials, user }) {
       console.log("profile", profile);
       console.log("account", account);
+      console.log("credentials", credentials);
+      console.log("user", user);
 
       return true;
     },

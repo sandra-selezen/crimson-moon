@@ -27,8 +27,9 @@ export const LoginForm = () => {
         password: values.password,
         redirectTo: "/",
       });
+
     } catch (error: any) {
-      alert(error.response.data.error);
+      throw new Error(error);
     } finally {
       formikHelpers.resetForm();
     }
