@@ -14,7 +14,8 @@ export const signUpSchema = yup.object().shape({
     .required('Email is required'),
   password: yup
     .string()
-    .min(7, 'Must be at least 7 characters long')
+    .min(8, 'Must be at least 7 characters long')
+    .max(32, "Password must be less than 32 characters")
     .required('Password is required'),
 });
 
@@ -26,6 +27,5 @@ export const logInSchema = yup.object().shape({
     .required('Email is required'),
   password: yup
     .string()
-    .min(7, 'Must be at least 7 characters long')
     .required('Password is required'),
 });

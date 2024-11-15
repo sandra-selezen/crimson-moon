@@ -22,14 +22,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           await mongooseConnect();
           const user = await User.findOne({ email: credentials?.email });
-          if (!user) throw new Error("Incorrect email or password");
+
+          if (!user) {
+            throw new Error("CredentialsSignin");
+          }
+
           const isValidPassword = await bcrypt.compare(
-            credentials?.password ?? "", user.password as string
-          ); 
-          if (!isValidPassword) throw new Error("Incorrect email or password");
-          return user;
-        } catch (error) {
-          return null;
+            credentials?.password ?? "",
+            user.password as string
+          );
+
+          if (!isValidPassword) {
+            throw new Error("CredentialsSignin");
+          }
+
+          return {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+          };
+        } catch (error: any) {
+          console.error("Error in authorize:", error?.message);
+          throw new Error("CredentialsSignin");
+          // return null;
+          // throw new Error(error?.message || "Authorization failed.");
         }
       },
     }),
@@ -43,15 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   callbacks: {
-    async signIn({ account, profile, credentials, user }) {
-      console.log("profile", profile);
-      console.log("account", account);
-      console.log("credentials", credentials);
-      console.log("user", user);
-
-      return true;
-    },
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -69,14 +76,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: token.name ?? "",
           image: token.picture ?? "",
           emailVerified: null,
-        }
+        };
       }
-
       return session;
-    }
+    },
   },
+
   pages: {
     signIn: "/login",
+    error: "/error",
   },
+
   secret: process.env.NEXT_AUTH_SECRET as string,
 });
