@@ -44,21 +44,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } catch (error: any) {
           console.error("Error in authorize:", error?.message);
           throw new Error("CredentialsSignin");
-          // throw new Error(error?.message || "Authorization failed.");
         }
       },
     }),
     Google({
       clientId: AUTH_GOOGLE_ID,
       clientSecret: AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          scope: "openid email profile https://www.googleapis.com/auth/books",
+        },
+      },
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, profile, account }) {
+      if (account?.provider === "google" && account.access_token) {
+        token.accessToken = account.access_token;
+      }
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -76,6 +83,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           image: token.picture ?? "",
           emailVerified: null,
         };
+        session.accessToken = token.accessToken as string | undefined;
       }
       return session;
     },

@@ -13,3 +13,12 @@ export const fetchBooks = async (query: string) => {
     return [];
   }
 };
+
+export const fetchBookshelves = async (accessToken: string) => {
+  const response = await axios.get("https://www.googleapis.com/books/v1/mylibrary/bookshelves", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
