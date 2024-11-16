@@ -33,12 +33,22 @@
   border-radius: 0.375rem;
   border: 1px solid $text-secondary;
   background-color: transparent;
+
+  &.isError {
+    border-color: $text-error;
+  }
 }
 
 .submitBox {
   display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
   align-items: center;
-  justify-content: space-between;
+
+  @include only-large {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .signupBtn {
@@ -56,13 +66,19 @@
     background-color: $accent-primary;
     color: $background-primary;
   }
+
+  &.isSubmitting {
+    background-color: #6c757d;
+    cursor: wait;
+  }
 }
 
 .loginLink {
   font-weight: 700;
-  transition: color 0.3s;
+  color: $accent-primary;
+
   &:hover {
-    color: $accent-primary;
+    text-decoration: underline;
   }
 }
 
@@ -92,4 +108,8 @@
     color: $text-primary;
     background-color: $background-secondary;
   }
+}
+
+.error {
+  color: $text-error;
 }

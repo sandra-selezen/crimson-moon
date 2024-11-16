@@ -29,14 +29,9 @@ export const Header = async () => {
           {session && session.user ? (
             <UserBar id={session.user.id} name={session.user.name} image={session.user.image} />
           ) : (
-            <ul className={style.list}>
-              <li className={style.item}>
-                <ActiveLink href={"/login"}>Login</ActiveLink>
-              </li>
-              <li className={style.item}>
-                <ActiveLink href={"/signup"}>Signup</ActiveLink>
-              </li>
-            </ul>
+            <div className={style.loginLink}>
+              <ActiveLink href={"/login"}>Login</ActiveLink>
+            </div>
           )}
         </div>
       </nav>

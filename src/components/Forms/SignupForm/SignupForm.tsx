@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import axios from "axios";
+import classNames from "classnames";
 import { RiGoogleFill } from "@remixicon/react";
 
 import { signUpSchema } from "@/schemas";
+import { ISignupValues } from "@/lib/types";
 
 import { Separator } from "@/components/Separator/Separator";
 import style from "../../../styles/pages/AuthPage.module.scss";
@@ -25,10 +27,10 @@ export const SignupForm = () => {
     await signIn("google", { redirectTo: "/" });
   }
 
-  const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
+  const handleSubmit = async (values: ISignupValues, formikHelpers: FormikHelpers<ISignupValues>) => {
     try {
       await axios.post('/api/register', { ...values });
-      router.push("/");
+      router.push("/login");
     } catch (error: any) {
       alert(error.response.data.error);
     } finally {
@@ -43,23 +45,32 @@ export const SignupForm = () => {
         validationSchema={signUpSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting, values, errors, touched }) => (
           <Form className={style.form}>
             <div className={style.fieldWrapper}>
               <label htmlFor='name'>Full name</label>
-              <Field required id='name' name='name' type='text' placeholder='Enter your full name' className={style.field} />
+              <Field required id='name' name='name' type='text' placeholder='Enter your full name' className={classNames(style.field, { [style.isError]: errors.name && touched.name })} />
+              <ErrorMessage name="name" component="div" className={style.error} />
             </div>
             <div className={style.fieldWrapper}>
               <label htmlFor='email'>Email address</label>
-              <Field required id='email' name='email' type='email' placeholder='Enter your email address' className={style.field} />
+              <Field required id='email' name='email' type='email' placeholder='Enter your email address' className={classNames(style.field, { [style.isError]: errors.email && touched.email })} />
+              <ErrorMessage name="email" component="div" className={style.error} />
             </div>
             <div className={style.fieldWrapper}>
               <label htmlFor='password'>Password</label>
-              <Field required id='password' name='password' type='password' placeholder='Enter password' className={style.field} />
+              <Field required id='password' name='password' type='password' placeholder='Enter password' className={classNames(style.field, { [style.isError]: errors.password && touched.password })} />
+              <ErrorMessage name="password" component="div" className={style.error} />
             </div>
 
             <div className={style.submitBox}>
-              <button type="submit" className={style.signupBtn}>Sign up</button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={classNames(style.signupBtn, { [style.isSubmitting]: isSubmitting })}
+              >
+                Sign up
+              </button>
               <p>Have an account? <Link href="/login" className={style.loginLink}>Login</Link></p>
             </div>
             <Separator label="or" />

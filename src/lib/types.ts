@@ -25,3 +25,14 @@ export interface IGoogleBook {
     };
   };
 }
+
+export interface ILoginValues {
+  email: string;
+  password: string;
+}
+
+export interface ISignupValues {
+  name: string;
+  email: string;
+  password: string;
+}

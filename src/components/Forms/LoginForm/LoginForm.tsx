@@ -1,19 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
+import classNames from "classnames";
 import { RiGoogleFill } from "@remixicon/react";
 
 import { logInSchema } from "@/schemas";
+import { ILoginValues } from "@/lib/types";
 
 import { Separator } from "@/components/Separator/Separator";
 import style from "../../../styles/pages/AuthPage.module.scss";
 
 export const LoginForm = () => {
-  const router = useRouter();
-
   const initialValues = {
     email: "",
     password: ""
@@ -23,7 +22,7 @@ export const LoginForm = () => {
     await signIn("google", { callbackUrl: "/" });
   }
 
-  const handleSubmit = async (values: any, formikHelpers: FormikHelpers<any>) => {
+  const handleSubmit = async (values: ILoginValues, formikHelpers: FormikHelpers<ILoginValues>) => {
     try {
       const result = await signIn("credentials", {
         email: values.email,
@@ -50,16 +49,16 @@ export const LoginForm = () => {
         validationSchema={logInSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting, values, errors, touched }) => (
           <Form className={style.form}>
             <div className={style.fieldWrapper}>
               <label htmlFor='email'>Email address</label>
-              <Field required id='email' name='email' type='email' placeholder='Enter your email address' className={style.field} />
+              <Field required id='email' name='email' type='email' placeholder='Enter your email address' className={classNames(style.field, { [style.isError]: errors.email && touched.email })} />
               <ErrorMessage name="email" component="div" className={style.error} />
             </div>
             <div className={style.fieldWrapper}>
               <label htmlFor='password'>Password</label>
-              <Field required id='password' name='password' type='password' placeholder='Enter password' className={style.field} />
+              <Field required id='password' name='password' type='password' placeholder='Enter password' className={classNames(style.field, { [style.isError]: errors.password && touched.password })} />
               <ErrorMessage name="password" component="div" className={style.error} />
             </div>
 

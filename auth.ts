@@ -44,7 +44,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } catch (error: any) {
           console.error("Error in authorize:", error?.message);
           throw new Error("CredentialsSignin");
-          // return null;
           // throw new Error(error?.message || "Authorization failed.");
         }
       },
