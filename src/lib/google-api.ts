@@ -15,10 +15,15 @@ export const fetchBooks = async (query: string) => {
 };
 
 export const fetchBookshelves = async (accessToken: string) => {
-  const response = await axios.get("https://www.googleapis.com/books/v1/mylibrary/bookshelves", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`https://www.googleapis.com/books/v1/mylibrary/bookshelves?key=${API_KEY}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data.items;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return [];
+  }
 };

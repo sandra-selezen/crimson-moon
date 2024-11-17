@@ -1,0 +1,31 @@
+@import "../mixins";
+@import "../variables";
+
+.title {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.section {
+  padding: 2rem 0;
+
+  @include only-large {
+    padding: 3rem 0;
+  }
+}
+
+.avatarWrapper {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50%;
+  border: 2px solid $accent-primary;
+
+  & img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+}

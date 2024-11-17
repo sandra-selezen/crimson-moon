@@ -18,6 +18,8 @@
     cursor: pointer;
 
     & a {
+      display: inline-block;
+      width: 100%;
       color: $accent-primary;
     }
   }
